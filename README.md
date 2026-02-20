@@ -2,9 +2,9 @@
 
 ## Overview
 
-This project implements a PySpark ETL pipeline to process telecom subscriber data using an initial (historical) load followed by incremental (delta) updates. The pipeline enriches subscriber data through joins and produces a curated dataset.
-
----
+I built this project to practice implementing an ETL workflow in PySpark using telecom subscriber data.
+It starts with loading historical data and then processes incremental updates to keep the dataset current.
+The pipeline performs joins across multiple tables and produces a curated subscriber output.
 
 ## Tech Stack
 
@@ -14,49 +14,41 @@ This project implements a PySpark ETL pipeline to process telecom subscriber dat
 * JDBC
 * CSV
 
----
-
-## ETL Workflow
+## Workflow
 
 ### Initial Load
 
-* Extract full datasets from SQL via JDBC
-* Store raw data as CSV
-* Load into Spark
-* Join subscriber, address, city, country, and plan tables
-* Create baseline enriched dataset
+* Extract full datasets from SQL using JDBC
+* Save raw data as CSV
+* Load into Spark and join subscriber, address, city, country, and plan data
+* Generate the baseline dataset
 
 ### Incremental Load
 
-* Read delta datasets
+* Read delta/update files
 * Apply transformations using Spark SQL
-* Generate incremental subscriber updates
+* Produce incremental subscriber updates
 
-### Merge
+### Final Merge
 
-* Union historical and incremental data
-* Deduplicate using window functions
-* Select latest record per subscriber
-* Write final curated output
-
----
+* Combine historical and incremental datasets
+* Remove duplicates using window functions
+* Keep the latest record per subscriber
+* Write final output
 
 ## Run
 
-Update configs and execute:
+Update config paths and run:
 
-```id="p6rjzq"
+```
 python extract_historical_data_from_sql.py
 python subscriber_details_final.py
 ```
 
----
+## What I Practiced
 
-## Concepts Demonstrated
-
-* Initial & incremental ETL loading
-* DataFrame joins
-* Spark SQL transformations
+* Handling initial vs incremental loads
+* PySpark joins and transformations
+* Spark SQL processing
 * Window-based deduplication
-* Config-driven pipeline design
-
+* Structuring modular ETL scripts
