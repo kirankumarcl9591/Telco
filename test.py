@@ -48,7 +48,7 @@ def main():
     os.environ['PYSPARK_PYTHON'] = python_path
     # print("Starting main function...")
     # spark = spark_session()
-    config_file_path = "E:\\0_BIG DATA\\PROJECTS\\iNeuron_Karthik\\test.json"
+    config_file_path = "E:\\0_BIG DATA\\PROJECTS\\test.json"
     config_file = read_json(config_file_path)
     file = config_file["config_file"]
     # print(f"Config file path from JSON: {file}")
