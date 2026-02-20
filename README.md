@@ -1,54 +1,52 @@
 # Telco Subscriber ETL — PySpark
 
-## Overview
+## About this project
 
-I built this project to practice implementing an ETL workflow in PySpark using telecom subscriber data.
-It starts with loading historical data and then processes incremental updates to keep the dataset current.
-The pipeline performs joins across multiple tables and produces a curated subscriber output.
+I built this project while practicing PySpark ETL workflows using telecom-style data.
+The idea was to simulate how data is first loaded in bulk and then updated incrementally over time.
 
-## Tech Stack
+The pipeline reads raw data from SQL, processes it in Spark, joins related tables, and produces a cleaned subscriber dataset.
 
-* Python
-* PySpark
-* Spark SQL
-* JDBC
-* CSV
+## How it works
 
-## Workflow
+**Initial Load**
 
-### Initial Load
+* Pulls full tables from SQL through JDBC
+* Saves them as CSV
+* Loads into Spark and joins subscriber, address, city, country and plan data
 
-* Extract full datasets from SQL using JDBC
-* Save raw data as CSV
-* Load into Spark and join subscriber, address, city, country, and plan data
-* Generate the baseline dataset
+**Incremental Load**
 
-### Incremental Load
+* Reads update files (delta data)
+* Applies the same transformations
+* Produces updated subscriber records
 
-* Read delta/update files
-* Apply transformations using Spark SQL
-* Produce incremental subscriber updates
+**Final Step**
 
-### Final Merge
+* Combines historical + incremental data
+* Removes duplicates using window logic
+* Keeps the latest record per subscriber
+* Writes final output
 
-* Combine historical and incremental datasets
-* Remove duplicates using window functions
-* Keep the latest record per subscriber
-* Write final output
+## Running it
 
-## Run
-
-Update config paths and run:
+Update paths in the config files and run:
 
 ```
 python extract_historical_data_from_sql.py
 python subscriber_details_final.py
 ```
 
-## What I Practiced
+## Why I made this
 
-* Handling initial vs incremental loads
-* PySpark joins and transformations
-* Spark SQL processing
-* Window-based deduplication
-* Structuring modular ETL scripts
+Mainly to get hands-on with:
+
+* PySpark joins
+* Spark SQL
+* Handling incremental loads
+* Window functions
+* Structuring ETL scripts
+
+---
+
+Kiran Kumar
